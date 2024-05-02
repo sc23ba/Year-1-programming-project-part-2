@@ -25,6 +25,7 @@ int* ValidateMaze(const char* filename) {
         perror("Memory allocation failed\n");
         return NULL;
     }
+    size[0] = 1;
     
 
     char line_buffer[50];       
@@ -433,8 +434,12 @@ int main() {
 
         scanf(" %s", fileName);
 
-        height = ValidateMaze(fileName)[0];
-        width = ValidateMaze(fileName)[1];
+        if (ValidateMaze(fileName)[0] != 1){
+            height = ValidateMaze(fileName)[0];
+            width = ValidateMaze(fileName)[1];
+        }
+
+        
 
     }
 
@@ -488,6 +493,13 @@ int main() {
         wingame = Wincheck(currentPosition);
 
     }
+    
+    free(fileName);
+    for (int i = 0; i < height; i++) {
+        free(maze[i]);
+    }
+    free(maze);
+    
 
 
     return 0;
