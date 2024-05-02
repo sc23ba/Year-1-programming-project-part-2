@@ -17,9 +17,11 @@ struct Cell {
 
 };
 
-
+//file handling and techniques used are attributed to resources at https://www.geeksforgeeks.org/error-handling-during-file-operations-in-c-c/
+//and previous coding experience 
 int* ValidateMaze(const char* filename) { 
 
+    //Memory allocation of size needs to be dynamic otherwise the return will return the address of size, not the array itself
     int* size = malloc(2 * sizeof(int));
     if (size == NULL) {
         perror("Memory allocation failed\n");
@@ -112,7 +114,8 @@ int* ValidateMaze(const char* filename) {
     }
 
     fclose(file);
-
+    //if the size is returned before this point then the file is counted as invalid, the error check
+    //occurs outside of this subroutine in main where as height will be 1 it will loop back for the user to reinput the filename
     size[0] = height;
     size[1] = width;
 
@@ -170,7 +173,7 @@ char** LoadMaze(const int count, char* filename) { //is the user's input is vali
 
 
 struct Cell LoadStartPosition(char** maze, int height, int width) {
-
+    //the maze is read until the cell 'S' is found and then the coordinates are returned
     for (int i = 0; i < height; i++) {
 
         for (int j = 0; j < width; j++) {
