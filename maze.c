@@ -21,7 +21,10 @@ struct Cell {
 int* ValidateMaze(const char* filename) { 
 
     int* size = malloc(2 * sizeof(int));
-    int size[2] = { -1, -1};
+    if (size == NULL) {
+        perror("Memory allocation failed\n");
+        return NULL;
+    }
     
 
     char line_buffer[50];       
